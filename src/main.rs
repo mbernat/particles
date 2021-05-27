@@ -50,8 +50,11 @@ impl Particle {
         self.pos += self.vel * dt;
     }
 
-    fn target(&mut self, place: Vec2, strength: f32) {
-        let force = 1000.0 * strength;
+    fn target(&mut self, place: Vec2, strength: f32, color: Color) {
+        let cvec = color.to_vec();
+        let svec = self.color.to_vec();
+        let color_match = 1.0 - (cvec - svec).length_squared() / 3.0;
+        let force = 1000.0 * strength * color_match.powi(8);
         let diff = place - self.pos;
         let mut dist = diff.length();
         if dist < 100.0 {
@@ -74,31 +77,50 @@ impl Particle {
     }
 }
 
-#[macroquad::main("Particles")]
+fn window_conf() -> Conf {
+    Conf {
+        window_title: "Particles".to_owned(),
+        fullscreen: true,
+        ..Default::default()
+    }
+}
+
+#[macroquad::main(window_conf)]
 async fn main() {
     let width = screen_width();
     let height = screen_height();
     let count: usize = 10000;
+    let mut color = RED;
 
     let mut ps: Vec<Particle> = (1..=count).map(|_| Particle::generate(width, height)).collect();
     loop {
         clear_background(BLACK);
 
         let dt = get_frame_time();
+        let (mx, my) = mouse_position();
+
+        if is_mouse_button_pressed(MouseButton::Right) {
+            color = random_color();
+        }
+
+        if is_key_pressed(KeyCode::Escape) {
+            break;
+        }
 
         for p in &mut ps {
             p.acc = Vec2::ZERO;
-            let (mx, my) = mouse_position();
             let strength = if is_mouse_button_down(MouseButton::Left) {
                 1000.0
             } else {
                 100.0
             };
-            p.target(Vec2::new(mx, my), strength);
+            p.target(Vec2::new(mx, my), strength, color);
             p.drag();
             p.wiggle();
             p.step(dt);
         }
+
+        draw_circle(mx, my, 10.0, color);
 
         for p in &ps {
             p.draw();

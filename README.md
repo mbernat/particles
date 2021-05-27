@@ -16,6 +16,12 @@ cargo run --release
 
 ## Controls
 
-So far only mouse control is implemented. The particles follow the mouse.
+Use the mouse to control the game.
 
-When the left mouse button is pressed they do so more eagerly.
+Particles follow your cursor. The more similar their color to your cursor's color, the stronger they are attracted.
+
+Left mouse button makes your cursor more attractive.
+
+Right mouse button changes your cursor's color.
+
+Press Escape to exit the game.
