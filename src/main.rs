@@ -60,10 +60,7 @@ impl Particle {
     }
 
     fn draw(&self) {
-        use rand::ChooseRandom;
-        let x = rand::rand();
-        let color = Color::new()
-        draw_circle(self.pos.x, self.pos.y, 3.0, *color);
+        draw_circle(self.pos.x, self.pos.y, 3.0, WHITE);
     }
 }
 
