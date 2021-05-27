@@ -1,14 +1,14 @@
 # Particles
 
-A simple particle system
+A simple particle system in Rust (language).
 
 ## Installing Rust
 
-You need to have Rust (language) toolchain installed to build the project. Please follow the [official instructions](https://www.rust-lang.org/tools/install) to install Rust.
+You need to have the Rust toolchain installed to build the project. Please follow the [official instructions](https://www.rust-lang.org/tools/install) to install Rust.
 
 ## Running the app
 
-With Rust toolchain installed it should suffice to run the following command in this directory.
+With the Rust toolchain installed it should suffice to run the following command in this directory.
 
 ```
 cargo run --release
@@ -16,6 +16,6 @@ cargo run --release
 
 ## Controls
 
-So far only mouse control is implemented. The particles should follow the mouse.
+So far only mouse control is implemented. The particles follow the mouse.
 
-If the left mouse button is pressed they do so more eagerly.
+When the left mouse button is pressed they do so more eagerly.
