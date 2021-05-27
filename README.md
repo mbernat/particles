@@ -13,3 +13,9 @@ With Rust toolchain installed it should suffice to run the following command in 
 ```
 cargo run --release
 ```
+
+## Controls
+
+So far only mouse control is implemented. The particles should follow the mouse.
+
+If the left mouse button is pressed they do so more eagerly.
