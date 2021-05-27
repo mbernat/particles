@@ -3,7 +3,9 @@ use macroquad::prelude::*;
 struct Particle {
     pos: Vec2,
     vel: Vec2,
-    acc: Vec2
+    acc: Vec2,
+
+    color: Color
 }
 
 fn random_vec2(max: Vec2) -> Vec2 {
@@ -24,9 +26,17 @@ fn random_in_annulus(min: f32, max: f32) -> Vec2 {
     }
 }
 
+fn random_color() -> Color {
+    let r = rand::gen_range(0.0, 1.0);
+    let g = rand::gen_range(0.0, 1.0);
+    let b = rand::gen_range(0.0, 1.0);
+    Color::new(r, g, b, 1.0)
+}
+
 impl Particle {
     fn new(pos: Vec2, vel: Vec2) -> Particle {
-        Particle{pos, vel, acc: Vec2::ZERO}
+        let color = random_color();
+        Particle{pos, vel, acc: Vec2::ZERO, color}
     }
 
     fn generate(max_x: f32, max_y: f32) -> Particle {
@@ -60,7 +70,7 @@ impl Particle {
     }
 
     fn draw(&self) {
-        draw_circle(self.pos.x, self.pos.y, 3.0, WHITE);
+        draw_circle(self.pos.x, self.pos.y, 3.0, self.color);
     }
 }
 
